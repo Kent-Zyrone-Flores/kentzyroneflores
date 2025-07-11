@@ -1,3 +1,29 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #121212;
+  --nav-bg: rgba(255, 255, 255, 0.9);
+  --link-color: #000000;
+  --link-hover: #ff4c60;
+  --box-shadow: rgba(0, 0, 0, 0.3);
+  --section-bg: rgba(0, 0, 0, 0.05);
+  --footer-bg: rgba(0, 0, 0, 0.6);
+  --star-color: rgba(0, 0, 0, 1);
+  --line-color: rgba(0, 0, 0);
+}
+
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --nav-bg: rgba(18, 18, 18, 0.9);
+  --link-color: #ffffff;
+  --link-hover: #ff4c60;
+  --box-shadow: rgba(255, 255, 255, 0.3);
+  --section-bg: rgba(255, 255, 255, 0.05);
+  --footer-bg: rgba(255, 255, 255, 0.1);
+  --star-color: rgba(255, 255, 255, 1);
+  --line-color: rgba(255, 255, 255);
+}
+
 html,
 body {
   height: 100%;
@@ -5,9 +31,19 @@ body {
 }
 
 .name-wrapper {
-  animation: float 4s ease-in-out infinite;
   display: inline-block;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  width: 20ch;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 1.2;
   margin-bottom: 1rem;
+}
+
+#typed-name {
+  display: inline-block;
+  font-family: inherit;
 }
 
 .cursor {
@@ -39,7 +75,7 @@ h1 {
   font-size: 3rem;
   font-weight: 800;
   text-align: center;
-  color: #fff;
+  transition: color 0.3s ease;
 }
 
 @keyframes float {
@@ -66,10 +102,16 @@ html {
 }
 
 body {
-  background: linear-gradient(135deg, #0f0c29, #670700, #24283e);
-  color: #fff;
+  background: var(--bg-color);
+  color: var(--text-color);
   overflow-x: hidden;
   line-height: 2.6;
+}
+body.dark-mode h1 {
+  color: #ffffff;
+}
+body:not(.dark-mode) h1 {
+  color: #000000;
 }
 
 nav {
@@ -77,11 +119,11 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 2rem;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--nav-bg);
+  box-shadow: 0 2px 10px var(--box-shadow);
   position: sticky;
   top: 0;
   z-index: 2000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 /*  
 @media (max-width: 768px) {
@@ -89,6 +131,12 @@ nav {
     display: none;
   }
 }*/
+
+.logo,
+.nav-links a,
+.footer {
+  color: var(--link-color);
+}
 
 .logo {
   display: flex;
@@ -105,6 +153,8 @@ nav {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #fff;
+  border: 2px solid #000000;
+  background-color: #000000;
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
 }
 
@@ -115,11 +165,23 @@ nav {
 
 .nav-links a {
   text-decoration: none;
-  color: #fff;
   font-weight: 700;
   font-size: 1.2rem;
-  transition: 0.3s ease;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
   border-bottom: 2px solid transparent;
+}
+
+body.dark-mode .nav-links a {
+  color: #ffffff;
+}
+
+body:not(.dark-mode) .nav-links a {
+  color: #000000;
+}
+
+.nav-links a:hover {
+  color: #ff4c60;
+  border-bottom: 2px solid #ff4c60;
 }
 
 .nav-links a:hover {
@@ -167,7 +229,7 @@ nav {
 }
 
 .section:not(#home) {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--section-bg);
   transition: transform 0.3s ease;
 }
 
@@ -272,8 +334,8 @@ nav {
 .social-links {
   margin-top: 1rem;
   display: flex;
-  gap: 1.2rem;
-  font-size: 1.7rem;
+  gap: 1.8rem;
+  font-size: 0.7rem;
   justify-content: center;
 }
 
@@ -283,8 +345,8 @@ nav {
 }
 
 .social-links a:hover {
-  transform: scale(1.2);
-  color: #ff4c60;
+  transform: scale(1.5);
+  color: #ffffff;
 }
 
 .section h2 {
@@ -376,15 +438,15 @@ canvas#background {
 }
 
 .footer {
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--footer-bg);
+  color: var(--link-color);
+  box-shadow: 0 -4px 10px var(--box-shadow);
   text-align: center;
   padding: 1rem 0;
   font-size: 1rem;
   font-weight: 500;
   border-top: 2px solid #ff4c60;
-  color: #fff;
   margin-top: 3rem;
-  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
 }
 @media (max-width: 1920px) {
   .section,
@@ -392,4 +454,27 @@ canvas#background {
     width: 85vw;
     height: 76vh;
   }
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.theme-toggle img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s ease;
+  border: #fff 5px solid;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.theme-toggle img:hover {
+  transform: scale(1.1);
 }

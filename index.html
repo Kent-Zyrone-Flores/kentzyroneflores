@@ -13,7 +13,7 @@
   <canvas id="background"></canvas>
   <nav> 
   <div class="logo">
-    <img src="logo.png" alt="Zyrone Logo" class="logo-img" />
+    <img src="images/logo.png" alt="Zyrone Logo" class="logo-img" />
   </div>
  <div class="nav-links" id="navLinks">
     <a href="#home">Home</a>
@@ -22,18 +22,19 @@
     <a href="#contact">Contact</a>
 -->
   </div>
-  
 </nav>
   <div class="content">
     <section id="home" class="home section fade-in">
       <div class="profile-wrapper">
   <div class="glow-aura"></div>
-  <img src="profile.png" alt="Kent Zyrone Flores" class="profile-pic" />
+  <img src="images/profile.png" alt="Kent Zyrone Flores" class="profile-pic" />
 </div>
-
+  <button class="theme-toggle" onclick="toggleTheme()">
+  <img src="images/light.png" id="theme-icon" alt="Toggle Theme" />
+</button>
       <div>
         <div>
-        <h1><span id="typed-name"></span><span class="cursor">|</span></h1>
+        <h1 class="name-wrapper"><span id="typed-name"></span><span class="cursor">|</span></h1>
         </div>
         <center>
         <p>IT Student | Incoming 4th Year Student <br> Student at <a href="https://tcc.edu.ph/" target="_blank">Tagoloan Community College</a></p>
@@ -41,13 +42,13 @@
         </center>
         <center><h6>Follow me:</h6></center>
         <div class="social-links">
-          <a href="https://github.com/Kent-Zyrone-Flores" target="_blank"><img src="github.png" alt="GitHub Logo" style="width: 24px; height: 24px; vertical-align: middle;" /></a>
-          <a href="https://www.facebook.com/k.zyroneflores" target="_blank"><img src="facebook.png" alt="Facebook Logo" style="width: 24px; height: 24px; vertical-align: middle;" /></a>
+          <a href="https://github.com/Kent-Zyrone-Flores" target="_blank"><img src="images/github.png" alt="GitHub Logo" style="width: 24px; height: 24px; vertical-align: middle;" /></a>
+          <a href="https://www.facebook.com/k.zyroneflores" target="_blank"><img src="images/facebook.png" alt="Facebook Logo" style="width: 24px; height: 24px; vertical-align: middle;" /></a>
           <a href="https://x.com/Zyrn33" target="_blank">
-            <img src="X.png" alt="X Logo" style="width: 24px; height: 24px; vertical-align: middle;" />
+            <img src="images/X.png" alt="X Logo" style="width: 24px; height: 24px; vertical-align: middle;" />
           </a>
-          <a href="https://www.instagram.com/zyrne.x" target="_blank"><img src="instagram.png" alt="Instagram Logo" style="width: 24px; height: 24px; vertical-align: middle;" /></a>
-          <a href="https://discord.com/users/zyrnnnn3." target="_blank"><img src="discord.png" alt="Discord Logo" style="width: 24px; height: 24px; vertical-align: middle;" /></a>
+          <a href="https://www.instagram.com/zyrne.x" target="_blank"><img src="images/instagram.png" alt="Instagram Logo" style="width: 24px; height: 24px; vertical-align: middle;" /></a>
+          <a href="https://discord.com/users/zyrnnnn3." target="_blank"><img src="images/discord.png" alt="Discord Logo" style="width: 24px; height: 24px; vertical-align: middle;" /></a>
         </div>
       </div>
     </section>
@@ -80,13 +81,38 @@
     </section>
   </div>-->
   <footer class="footer">
-  <p>&copy; 2025 Kent Zyrone Flores. All rights reserved.</p>
+  <p>&copy; 2024. All rights reserved.</p>
 </footer>
 
 </body>
 <script>
 const canvas = document.getElementById("background");
 const ctx = canvas.getContext("2d");
+
+// 🌗 Theme color variables
+let theme = 'dark';
+let starColor = 'rgba(255, 255, 255, 1)';
+let lineColorBase = 'rgba(255, 255, 255';
+let glowColor = 'rgba(255, 255, 255, 0.8)';
+let bigStarColor = 'rgba(255, 255, 100, 0.9)';
+
+// 🌗 Update canvas colors based on theme
+function updateThemeColors() {
+  theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+
+  if (theme === 'dark') {
+    starColor = 'rgba(255, 255, 255, 1)';
+    lineColorBase = 'rgba(255, 255, 255';
+    glowColor = 'rgba(255, 255, 255, 0.8)';
+    bigStarColor = 'rgba(255, 255, 100, 0.9)';
+  } else {
+    starColor = 'rgba(0, 0, 0, 0.8)';
+    lineColorBase = 'rgba(0, 0, 0';
+    glowColor = 'rgba(0, 0, 0, 0.8)';
+    bigStarColor = 'rgba(255, 215, 0, 0.7)';
+  }
+}
+updateThemeColors();
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -96,17 +122,17 @@ resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
 let stars = [];
-const starCount = 120;
-const connectionDistance = 100;
+const starCount = 200;
+const connectionDistance = 150;
 
 for (let i = 0; i < starCount; i++) {
   stars.push({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    radius: Math.random() * 1.5 + 0.5,
+    radius: Math.random() * 2.5 + 1.5,
     alpha: Math.random(),
-    dx: (Math.random() - 0.5) * 0.4,
-    dy: (Math.random() - 0.5) * 0.4,
+    dx: (Math.random() - 0.5) * 0.16,
+    dy: (Math.random() - 0.5) * 0.8,
     twinkleSpeed: Math.random() * 0.02 + 0.005,
   });
 }
@@ -121,7 +147,7 @@ function drawStarsAndLines() {
   for (let star of stars) {
     ctx.beginPath();
     ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+    ctx.fillStyle = starColor.replace('1', star.alpha.toFixed(2));
     ctx.fill();
   }
 
@@ -135,18 +161,17 @@ function drawStarsAndLines() {
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = `rgba(255, 255, 255, ${
-          1 - dist / connectionDistance
-        })`;
+        ctx.strokeStyle = `${lineColorBase}, ${(1 - dist / connectionDistance).toFixed(2)})`;
         ctx.lineWidth = 0.5;
         ctx.stroke();
       }
     }
   }
 }
+
 function drawBigStars() {
   const centerX = canvas.width / 2;
-  const baseY = canvas.height * 0.28; // Position above your name
+  const baseY = canvas.height * 0.28;
 
   const starPositions = [
     { x: centerX - 100, y: baseY },
@@ -156,9 +181,9 @@ function drawBigStars() {
 
   for (let pos of starPositions) {
     ctx.beginPath();
-    ctx.arc(pos.x, pos.y, 12, 0, Math.PI * 2); // Bigger size: 12px radius
-    ctx.fillStyle = "rgba(255, 255, 100, 0.9)";
-    ctx.shadowColor = "rgba(255, 255, 255, 0.8)";
+    ctx.arc(pos.x, pos.y, 12, 0, Math.PI * 2);
+    ctx.fillStyle = bigStarColor;
+    ctx.shadowColor = glowColor;
     ctx.shadowBlur = 15;
     ctx.fill();
     ctx.shadowBlur = 0;
@@ -181,6 +206,7 @@ function animate() {
   requestAnimationFrame(animate);
 }
 animate();
+
 function drawGeometry() {
   ctx.strokeStyle = "rgba(255, 76, 96, 0.15)";
   ctx.lineWidth = 0.4;
@@ -200,14 +226,16 @@ function drawGeometry() {
   }
 }
 
+// Smooth scroll for nav links
 document.querySelectorAll(".nav-links a").forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
     const targetId = link.getAttribute("href");
     const section = document.querySelector(targetId);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      section.scrollIntoView({ behavior: "smooth" });
     }
+    document.getElementById("navLinks").classList.remove("active");
   });
 });
 
@@ -239,32 +267,41 @@ function typeLoop() {
 }
 document.addEventListener("DOMContentLoaded", typeLoop);
 
-document.querySelectorAll(".nav-links a").forEach((link) => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-    const targetId = link.getAttribute("href");
-    const section = document.querySelector(targetId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  });
-});
-
 function toggleMenu() {
   document.getElementById("navLinks").classList.toggle("active");
 }
 
-document.querySelectorAll(".nav-links a").forEach((link) => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
+const themeIcon = document.getElementById("theme-icon");
+const logoImg = document.getElementById("logo");
+const profileImg = document.getElementById("profile");
 
-    document.getElementById("navLinks").classList.remove("active");
-  });
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+  themeIcon.src = isDark ? "images/light.png" : "images/dark.png";
+  logoImg.src = isDark ? "images/logo.png" : "images/logo.png";
+  profileImg.src = isDark ? "images/profile.png" : "images/profile.png";
+
+  updateThemeColors();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  const isDark = savedTheme === 'dark';
+
+  if (isDark) {
+    document.body.classList.add('dark-mode');
+  }
+
+  themeIcon.src = isDark ? "images/light.png" : "images/dark.png";
+  logoImg.src = isDark ? "images/logo.png" : "images/logo.png";
+  profileImg.src = isDark ? "images/profile.png" : "images/profile.png";
+
+  updateThemeColors();
 });
 </script>
+
 </html>
 
