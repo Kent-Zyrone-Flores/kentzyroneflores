@@ -44,7 +44,15 @@ body {
 #typed-name {
   display: inline-block;
   font-family: inherit;
+  color: #ffffff;
+  text-shadow:
+  0 0 5px #ffffff,
+  0 0 10px #1a1212,
+  0 0 20px #ff0000,
+  0 0 30px rgb(0, 0, 0),
+  0 0 40px #000000;
 }
+
 
 .cursor {
   display: inline-block;
@@ -183,11 +191,22 @@ nav {
     height: auto;
   }
 
-  .social-links {
-    gap: 1rem;
-    font-size: 1rem;
-    flex-wrap: wrap;
-  }
+  .social-links a img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 6px;
+  background-color: rgba(255, 255, 255, 0.179);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-links a img:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+}
+
 
   .theme-toggle {
     top: 0.5rem;
