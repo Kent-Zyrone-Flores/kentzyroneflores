@@ -221,7 +221,7 @@ nav {
 }
 
 footer p {
-  margin-top: -12px;
+  margin-top: -5px;
   margin-bottom: auto;
   font-style: italic;
   font-weight: bolder;
@@ -532,11 +532,11 @@ canvas#background {
   color: var(--link-color);
   box-shadow: 0 -4px 10px var(--box-shadow);
   text-align: center;
-  padding: 1rem 0;
+  padding: 0rem 0;
   font-size: 1rem;
   font-weight: 500;
   border-top: 2px solid #ff4c60;
-  margin-top: 3rem;
+  margin-top: 5rem;
 }
 @media (max-width: 1920px) {
   .section,
